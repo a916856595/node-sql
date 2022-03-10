@@ -1,9 +1,15 @@
-const express = require('express');
+import express from 'express';
+import requestMiddleware from '../middleware/request';
 
 const apiRouter = express.Router();
+// @ts-ignore
+apiRouter.use(requestMiddleware);
 
-apiRouter.get('/data', (req: any, res: any, next: any) => {
-  res.send('data');
+apiRouter.get('/data', (req, res, next) => {
+  // @ts-ignore
+  req.extra.setData({a: 123});
+  // @ts-ignore
+  res.send(req.extra.getData());
 });
 
 export default apiRouter;
