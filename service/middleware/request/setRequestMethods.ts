@@ -1,6 +1,7 @@
-import { AnyType } from '../../../types/base';
-import { IExRequest, IExResponse, NextType } from '../../../types/express';
-import { IExtra } from '../../../types/extra';
+import { NextFunction } from 'express';
+import { AnyType } from '../../../types/base.interface';
+import { IExRequest, IExResponse } from '../../../types/express.interface';
+import { IExtra } from '../../../types/extra.interface';
 
 class Extra implements IExtra {
   private data: AnyType;
@@ -15,7 +16,7 @@ class Extra implements IExtra {
   }
 }
 
-const setRequestMethods = (request: IExRequest, response: IExResponse, next: NextType): void => {
+const setRequestMethods = (request: IExRequest, response: IExResponse, next: NextFunction): void => {
   request.extra = new Extra();
   next();
 };
