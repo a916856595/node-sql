@@ -1,18 +1,39 @@
 import { NextFunction } from 'express';
-import { AnyType } from '../../../types/base.interface';
+import {
+  AnyType,
+  IResponse,
+} from '../../../types/base.interface';
 import { IExRequest, IExResponse } from '../../../types/express.interface';
 import { IExtra } from '../../../types/extra.interface';
 
 class Extra implements IExtra {
-  private data: AnyType;
+  private result: AnyType = undefined;
 
-  public setData(data: AnyType) {
-    this.data = data;
+  private status = 200;
+
+  private message = 'success';
+
+  public setResult(result: AnyType) {
+    this.result = result;
     return this;
   }
 
-  public getData(): AnyType {
-    return this.data;
+  public getResult(): AnyType {
+    return this.result;
+  }
+
+  public setBody(status?: number, message?: string): this {
+    if (status !== undefined) this.status = status;
+    if (message !== undefined) this.message = message;
+    return this;
+  }
+
+  public getResponse(): IResponse {
+    return {
+      status: this.status,
+      message: this.message,
+      result: this.result,
+    };
   }
 }
 

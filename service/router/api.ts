@@ -1,15 +1,20 @@
-import express from 'express';
+import express, { Response, NextFunction } from 'express';
 import requestMiddleware from '../middleware/request';
 import { IExRequest } from '../../types/express.interface';
-import { Response, NextFunction } from 'express';
+import responseMiddleware from '../middleware/response';
+import pathConfig from './pathConfig';
+import { IPathConfig } from '../../types/base.interface';
+import path from 'path';
 
 const apiRouter = express.Router();
 
-apiRouter.use('/', requestMiddleware);
+apiRouter.use(requestMiddleware);
 
-apiRouter.get('/data', (request: IExRequest, response: Response, next: NextFunction) => {
-  request.extra.setData({a: 456});
-  response.send(request.extra.getData());
+pathConfig.forEach((pathConfigItem: IPathConfig) => {
+  const { path: pathString, file, method } = pathConfigItem;
+  apiRouter[method](pathString, require(path.join(__dirname, file)).default);
 });
+
+apiRouter.use(responseMiddleware);
 
 export default apiRouter;
