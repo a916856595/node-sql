@@ -6,8 +6,7 @@
   "scripts": {
     "build": "webpack",
     "dev": "webpack serve --env development",
-    "sv": "nodemon -e ts --exec \"npm run tsnode\"",
-    "tsnode": "ts-node service/index.ts",
+    "sv": "nodemon service/index.ts",
     "lint": "eslint src"
   },
   "author": "Changjun Hong",

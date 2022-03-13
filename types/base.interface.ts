@@ -6,7 +6,7 @@ export type RequestType = 'get' | 'post';
 export interface IResponse {
   status: number;
   message: string;
-  result: AnyType;
+  result?: AnyType;
 }
 
 export interface IPathConfig {

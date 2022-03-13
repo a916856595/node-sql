@@ -29,11 +29,14 @@ class Extra implements IExtra {
   }
 
   public getResponse(): IResponse {
-    return {
+    const response: IResponse = {
       status: this.status,
       message: this.message,
-      result: this.result,
     };
+    if (this.result !== undefined) {
+      response.result = this.result;
+    }
+    return response;
   }
 }
 
