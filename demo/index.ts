@@ -5,15 +5,21 @@ const request = Request.create({
 });
 
 const exampleContrast = {
-  test: function() {
+  'test-get': () => {
     request.get('/api/test', { key: 123 })
       .then((result: any) => {
-        console.log('r', result);
-      })
-  }
-}
+        console.log('get', result);
+      });
+  },
+  'test-post': () => {
+    request.post('/api/test', { key: 123 })
+      .then((result: any) => {
+        console.log('post', result);
+      });
+  },
+};
 
 Object.entries(exampleContrast).forEach((elementIdAndHandler: [string, () => void]) => {
   const [elementId, handler] = elementIdAndHandler;
-  document.querySelector('#' + elementId).addEventListener('click', handler);
+  document.querySelector(`#${elementId}`).addEventListener('click', handler);
 });

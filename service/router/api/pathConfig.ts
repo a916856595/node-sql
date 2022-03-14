@@ -4,7 +4,7 @@ const pathConfig: IPathConfig[] = [
   {
     path: '/test',
     file: './db/test',
-    method: 'get',
+    method: 'all',
   },
 ];
 

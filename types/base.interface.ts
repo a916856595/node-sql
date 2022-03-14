@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnyType = any;
 
-export type RequestType = 'get' | 'post';
+export type RequestType = 'get' | 'post' | 'all';
 
 export interface IResponse {
   status: number;
