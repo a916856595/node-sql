@@ -16,9 +16,14 @@ interface IRequest {
   create: (options: IRequestOptions) => IRequestInstance;
 }
 
+const contentTypeStringContrast = {
+  json: 'application/json',
+};
+
 class RequestInstance {
   private headers: IHeader = {};
-  private baseURL: string = '';
+
+  private baseURL = '';
 
   constructor(requestOptions: IRequestOptions = {}) {
     const { headers, baseURL } = requestOptions;
@@ -37,8 +42,8 @@ class RequestInstance {
   private getPostBody(parameters: object, options: AnyType) {
     if (parameters !== undefined) {
       const fieldName = 'Content-Type';
-      const contentType = options && options.headers && options.headers[fieldName] || this.headers[fieldName];
-      if (!contentType || contentType.startsWith('application/json')) {
+      const contentType = (options && options.headers && options.headers[fieldName]) || this.headers[fieldName];
+      if (!contentType || contentType.startsWith(contentTypeStringContrast.json)) {
         return JSON.stringify(parameters);
       }
     }
@@ -61,7 +66,7 @@ class RequestInstance {
     return fetch(requestUrl, {
       method: 'GET',
       headers: this.headers,
-    });
+    }).then((response) => response.json());
   }
 
   post(url: string, parameters?: AnyType, options: AnyType = {}) {
@@ -70,7 +75,7 @@ class RequestInstance {
       method: 'POST',
       headers: this.headers,
       body: this.getPostBody(parameters, options) as AnyType,
-    });
+    }).then((response) => response.json());
   }
 }
 
