@@ -1,4 +1,5 @@
 import Request from './lib/request';
+import './reset.scss';
 
 const request = Request.create({
   baseURL: 'http://localhost:3000',
